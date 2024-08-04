@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber"
 import Car from "./renderer/car"
 import { Environment, KeyboardControls, OrbitControls } from "@react-three/drei"
+import Layout from "./components/layout"
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
     <OrbitControls/>
     </Canvas>
   </KeyboardControls>
+  <Layout/>
   </section>
   )
 }

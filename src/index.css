@@ -1,3 +1,17 @@
 body{
     margin: 0;
 }
+
+  .key--arrow {
+      height: 1.8em;
+      margin-top: 1.7em;
+      line-height: 0.5em;
+  }
+  
+  .key--arrow--tall > * {
+      padding-top: 0.2em;
+  }
+  
+  .keyboard > .keyboard__row {
+      text-align: center;
+  }
