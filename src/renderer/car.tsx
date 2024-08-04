@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Group, Matrix4, Vector3, Euler, AnimationMixer } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from "three-stdlib"
 
-const LoadCarModel = ({ position, rotation, model }) => {
+
+const LoadCarModel = ({ position, rotation, model }:{position:any, rotation:any, model:any}) => {
   return (
     <group rotation={rotation} position={position} scale={new Vector3(0.01, 0.01, 0.01)}>
       <primitive object={model.scene} />
@@ -14,7 +16,7 @@ const LoadCarModel = ({ position, rotation, model }) => {
 
 const Car = () => {
   const model = useLoader(GLTFLoader, "/flying_car/scene.gltf");
-  const mixer = useRef();
+  const mixer = useRef<AnimationMixer>();
   const ref = useRef<Group>(null);
   const [, get] = useKeyboardControls();
   const [position, setPosition] = useState(new Vector3(0, 0, 0));
@@ -24,7 +26,7 @@ const Car = () => {
     if (ref.current) {
       mixer.current = new AnimationMixer(ref.current);
       model.animations.forEach((clip) => {
-        mixer.current.clipAction(clip).play();
+    mixer.current?.clipAction(clip).play();
       });
     }
   }, [model.animations]);
@@ -39,7 +41,7 @@ const Car = () => {
     state.camera.position.copy(cameraPosition);
     state.camera.lookAt(position);
 
-    const { forward, backward, left, right, jump } = get();
+    const { forward, backward, left, right } = get();
     movePosition(forward, backward, left, right, delta);
   });
 
