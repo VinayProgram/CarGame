@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useKeyboardControls } from "@react-three/drei";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { ObjectMap, useFrame, useLoader } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Group, Matrix4, Vector3, Euler, AnimationMixer } from "three";
-import { GLTFLoader } from "three-stdlib"
+import { GLTF, GLTFLoader } from "three-stdlib"
 
 
-const LoadCarModel = ({ position, rotation, model }:{position:any, rotation:any, model:any}) => {
+const LoadCarModel = ({ position, rotation, model }:{position:Vector3, rotation:Euler, model:GLTF & ObjectMap}) => {
   return (
     <group rotation={rotation} position={position} scale={new Vector3(0.01, 0.01, 0.01)}>
       <primitive object={model.scene} />
@@ -26,7 +26,7 @@ const Car = () => {
     if (ref.current) {
       mixer.current = new AnimationMixer(ref.current);
       model.animations.forEach((clip) => {
-    mixer.current?.clipAction(clip).play();
+      mixer.current?.clipAction(clip).play();
       });
     }
   }, [model.animations]);
@@ -34,13 +34,11 @@ const Car = () => {
   useFrame((state, delta) => {
     const matrix = new Matrix4().makeTranslation(position.x, position.y, position.z);
     ref.current?.matrix.copy(matrix);
-
-    // Adjust the camera offset behind the car
-    const offset = new Vector3(0, 2, -7).applyEuler(rotation); // Negative Z to place the camera behind the car
+    const offset = new Vector3(0, 2, -7).applyEuler(rotation);
     const cameraPosition = position.clone().add(offset);
     state.camera.position.copy(cameraPosition);
     state.camera.lookAt(position);
-
+    state.camera.position.lerp(offset,0.05)
     const { forward, backward, left, right } = get();
     movePosition(forward, backward, left, right, delta);
   });
@@ -50,7 +48,7 @@ const Car = () => {
     backward: boolean,
     left: boolean,
     right: boolean,
-    delta: any
+    delta: number
   ) => {
     const newPosition = position.clone();
     const newRotation = rotation.clone();
@@ -58,11 +56,11 @@ const Car = () => {
     if (forward || backward || left || right) {
       mixer.current?.update(delta);
     }
-    if (forward) {
+    if (backward) {
       newPosition.x -= 0.1 * Math.sin(newRotation.y);
       newPosition.z -= 0.1 * Math.cos(newRotation.y);
     }
-    if (backward) {
+    if (forward) {
       newPosition.x += 0.1 * Math.sin(newRotation.y);
       newPosition.z += 0.1 * Math.cos(newRotation.y);
     }
