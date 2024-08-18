@@ -9,6 +9,11 @@ button{
     font-size: large;
     font-weight: bold;
     border-radius: 5px;
+    -webkit-touch-callout: none; /* Safari */
+    -webkit-user-select: none; /* Chrome */     
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
 }
 button:hover{
     background-color: white;
@@ -16,6 +21,11 @@ button:hover{
     font-size: large;
     font-weight: bold;
     height: 30px;
+    -webkit-touch-callout: none; /* Safari */
+    -webkit-user-select: none; /* Chrome */     
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
 }
 
 /* HTML: <div class="loader"></div> */
@@ -60,3 +70,4 @@ button:hover{
 p{
     text-wrap: wrap;
 }
+
