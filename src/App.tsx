@@ -5,7 +5,6 @@ import ThreeSceneEnvironment from "./renderer/threeSceneEnvironment"
 import Planets from "./renderer/planets"
 import Stars from "./renderer/stars"
 import Layout from "./components/layout"
-import { useStoreOutlet } from "./store/store"
 const keyMappings=[
   { name: "forward", keys: ["ArrowUp", "w", "W"] },
   { name: "backward", keys: ["ArrowDown", "s", "S"] },
@@ -14,8 +13,7 @@ const keyMappings=[
   { name: "jump", keys: ["Space"] },
 ]
 const App = () => {
- const {setLoading}=useStoreOutlet()
-  setLoading(true)
+ 
   return (
    <section style={{height:'100vh'}}>
       <KeyboardControls
