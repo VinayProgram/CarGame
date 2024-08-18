@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useLoader } from "@react-three/fiber";
 import React from "react";
 import { Vector3 } from "three";
 import {  GLTFLoader } from "three-stdlib";
+
 
 
 const models:ModelType[] = [
@@ -96,6 +98,7 @@ const PlanetShip = () => {
 
 
 const Planets = () => {
+    
     return (
         <React.Suspense>
             <group>

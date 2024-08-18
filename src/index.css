@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    background-color: #000;
 }
 
 button{
@@ -17,3 +18,45 @@ button:hover{
     height: 30px;
 }
 
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 80px;
+    aspect-ratio: 1;
+    border: 10px solid #000;
+    box-sizing: border-box;
+    background: 
+      radial-gradient(farthest-side at right,#fff 98%,#0000) 20% 50%/40% 80%,
+      radial-gradient(farthest-side at left ,#fff 98%,#0000) 80% 50%/40% 80%,
+      #000;
+    background-repeat: no-repeat;
+    filter: blur(4px) contrast(10); 
+    animation: l18 0.8s infinite alternate;
+  }
+  @keyframes l18 {
+    0%,20% {background-position:20% 50%,80% 50%}
+    100%   {background-position:80% 50%,20% 50%}
+  }
+
+  .intro {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    font-size: 1.5em;
+    animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+    max-width: 90%;
+    word-wrap: break-word;
+    color: #fff;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: orange; }
+}
+
+p{
+    text-wrap: wrap;
+}
