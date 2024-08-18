@@ -14,12 +14,12 @@ const models:ModelType[] = [
     },
 {
     path: "/dae_crib_-_solarpunk_arboretum.glb",
-    scale: new Vector3(10, 10, 10),
+    scale: new Vector3(2, 2, 2),
     position: new Vector3(0, 0, 0)
 },    
 {
     path: "/forest.glb",
-    scale: new Vector3(1, 1, 1),
+    scale: new Vector3(4, 4, 4),
     position: new Vector3(0, 0, 0)
 },
 {
@@ -40,7 +40,7 @@ const models:ModelType[] = [
 },
 {
     path: "/tiny_house.glb",
-    scale: new Vector3(1, 1, 1),
+    scale: new Vector3(4, 4, 4),
     position: new Vector3(0, 0, 0)
 },
 {
