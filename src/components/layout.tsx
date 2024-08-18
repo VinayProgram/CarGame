@@ -7,10 +7,10 @@ const Layout = () => {
     <div>
       <React.Fragment>
         <span >
-        <button onMouseEnter={()=>left(true)} onMouseLeave={()=>left(false)}>Left</button>
-        <button onMouseEnter={()=>backward(true)} onMouseLeave={()=>backward(false)}>Back</button>
-        <button onMouseEnter={()=>forward(true)} onMouseLeave={()=>forward(false)}>Up</button>
-        <button onMouseEnter={()=>right(true)} onMouseLeave={()=>right(false)}>Right</button>
+        <button  onTouchStart={()=>left(true)} onTouchEnd={()=>left(false)}>Left</button>
+        <button onTouchStart={()=>backward(true)} onTouchEnd={()=>backward(false)}>Back</button>
+        <button onTouchStart={()=>forward(true)} onTouchEnd={()=>forward(false)}>Up</button>
+        <button  onTouchStart={()=>right(true)} onTouchEnd={()=>right(false)}>Right</button>
         </span>
       </React.Fragment>
     </div>
