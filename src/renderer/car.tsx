@@ -1,7 +1,7 @@
 
 import { useKeyboardControls } from "@react-three/drei";
 import { ObjectMap, useFrame, useLoader } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { Group, Matrix4, Vector3, Euler, AnimationMixer } from "three";
 import { GLTF, GLTFLoader } from "three-stdlib"
 
@@ -20,9 +20,9 @@ const Car = () => {
   const ref = useRef<Group>(null);
   const [, get] = useKeyboardControls();
   const [position, setPosition] = useState(new Vector3(0, 0, 0));
-  const [rotation, setRotation] = useState(new Euler(0, Math.PI, 0)); // Default rotation of 180 degrees
+  const [rotation, setRotation] = useState(new Euler(0, Math.PI, 0)); 
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (ref.current) {
       mixer.current = new AnimationMixer(ref.current);
       model.animations.forEach((clip) => {
@@ -38,7 +38,7 @@ const Car = () => {
     const cameraPosition = position.clone().add(offset);
     state.camera.position.copy(cameraPosition);
     state.camera.lookAt(position);
-    state.camera.position.lerp(offset,0.05)
+  
     const { forward, backward, left, right } = get();
     movePosition(forward, backward, left, right, delta);
   });
@@ -61,8 +61,8 @@ const Car = () => {
       newPosition.z -= 0.1 * Math.cos(newRotation.y);
     }
     if (forward) {
-      newPosition.x += 0.1 * Math.sin(newRotation.y);
-      newPosition.z += 0.1 * Math.cos(newRotation.y);
+      newPosition.x += 0.8 * Math.sin(newRotation.y);
+      newPosition.z += 0.8 * Math.cos(newRotation.y);
     }
     if (left) newRotation.y += 0.05;
     if (right) newRotation.y -= 0.05;
