@@ -4,6 +4,7 @@ import { ObjectMap, useFrame, useLoader } from "@react-three/fiber";
 import React, {  useRef, useState } from "react";
 import { Group, Matrix4, Vector3, Euler, AnimationMixer } from "three";
 import { GLTF, GLTFLoader } from "three-stdlib"
+import { useStoreOutlet } from "../store/store";
 
 
 const LoadCarModel = ({ position, rotation, model }:{position:Vector3, rotation:Euler, model:GLTF & ObjectMap}) => {
@@ -21,7 +22,7 @@ const Car = () => {
   const [, get] = useKeyboardControls();
   const [position, setPosition] = useState(new Vector3(0, 0, 0));
   const [rotation, setRotation] = useState(new Euler(0, Math.PI, 0)); 
-
+  const {forwardMove,backwardMove,leftMove,rightMove}=useStoreOutlet()
   React.useEffect(() => {
     if (ref.current) {
       mixer.current = new AnimationMixer(ref.current);
@@ -38,7 +39,6 @@ const Car = () => {
     const cameraPosition = position.clone().add(offset);
     state.camera.position.copy(cameraPosition);
     state.camera.lookAt(position);
-  
     const { forward, backward, left, right } = get();
     movePosition(forward, backward, left, right, delta);
   });
@@ -53,19 +53,19 @@ const Car = () => {
     const newPosition = position.clone();
     const newRotation = rotation.clone();
 
-    if (forward || backward || left || right) {
+    if (forward || forwardMove|| backward || left || right || forwardMove||backwardMove||leftMove||rightMove) {
       mixer.current?.update(delta);
     }
-    if (backward) {
+    if (backward || backwardMove) {
       newPosition.x -= 0.1 * Math.sin(newRotation.y);
       newPosition.z -= 0.1 * Math.cos(newRotation.y);
     }
-    if (forward) {
+    if (forward || forwardMove) {
       newPosition.x += 0.8 * Math.sin(newRotation.y);
       newPosition.z += 0.8 * Math.cos(newRotation.y);
     }
-    if (left) newRotation.y += 0.05;
-    if (right) newRotation.y -= 0.05;
+    if (left || leftMove) newRotation.y += 0.05;
+    if (right || rightMove) newRotation.y -= 0.05;
 
     setPosition(newPosition);
     setRotation(newRotation);

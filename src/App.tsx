@@ -4,6 +4,8 @@ import { KeyboardControls, OrbitControls } from "@react-three/drei"
 import ThreeSceneEnvironment from "./renderer/threeSceneEnvironment"
 import Planets from "./renderer/planets"
 import Stars from "./renderer/stars"
+import Layout from "./components/layout"
+import { useStoreOutlet } from "./store/store"
 const keyMappings=[
   { name: "forward", keys: ["ArrowUp", "w", "W"] },
   { name: "backward", keys: ["ArrowDown", "s", "S"] },
@@ -12,8 +14,8 @@ const keyMappings=[
   { name: "jump", keys: ["Space"] },
 ]
 const App = () => {
- 
-
+ const {setLoading}=useStoreOutlet()
+  setLoading(true)
   return (
    <section style={{height:'100vh'}}>
       <KeyboardControls
@@ -26,7 +28,9 @@ const App = () => {
     <Stars/>
     </Canvas>
   </KeyboardControls>
-  
+  <span style={{position:'absolute' ,bottom:'10px',display:'flex',justifyContent:'center',width:'100%'}}>
+  <Layout/>
+  </span>
   </section>
   )
 }
